@@ -20,10 +20,10 @@ import sqlite3
 =>  ✅  DROP COLUMN (table_name, column_name)
 =>  ✅  DROP ROW (table_name, id)
 =>  ✅  COUNT ROWS (table_name)
+=>  ✅  CLOSE DB
 =>  UPDATE ROW (table_name, row_id, data)
 =>  SELECT ROW (table_name, condition=None)
 
-=>  CLOSE DB
 """
 
 
@@ -84,7 +84,7 @@ class SimpliDB:
         except sqlite3.Error as e:
             print(e)
 
-    def table_structure(self, table_name: str):
+    def table_query(self, table_name: str):
         try:
             return self.cursor.execute(
                 "SELECT sql FROM sqlite_schema WHERE name = '{}'".format(table_name)
@@ -106,9 +106,6 @@ class SimpliDB:
         except sqlite3.Error as e:
             print(e)
 
-    #############################################   TABLE METHODS   ###########################################
-    #
-    #
     #############################################   COLUMN METHODS  ###########################################
 
     def add_column(self, table_name: str, columns: dict):
@@ -145,9 +142,6 @@ class SimpliDB:
         except sqlite3.Error as e:
             print(e)
 
-    #############################################   COLUMN METHODS  ###########################################
-    #
-    #
     #############################################   ROW METHODS  ###########################################
 
     def insert_multiple(self, table_name: str, data: list):

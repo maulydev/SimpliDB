@@ -8,6 +8,10 @@ The `SimpliDB` class provides a simplified interface for interacting with a SQLi
 - `drop_table`: Deletes a table from the database if it exists.
 - `truncate_table`: Removes all the data from a table while keeping the table structure intact.
 - `rename_table`: Renames a table.
+- `fetch_table_column` : Retrieve table columns
+- `table_query`: Retrieves the query for the table
+- `table_info`: Returns the table information
+- `__tables__`: Returns all tables in the database
 
 ### Column Methods
 
@@ -51,6 +55,8 @@ The code should work on any operating system that supports Python and the `sqlit
 Ensure that you have a compatible version of Python installed on your system.
 
 ## Installing SimpliDB
+
+---
 
 SimpliDB can be installed from the GitHub repository using pip. Follow the steps below to install SimpliDB:
 
@@ -133,12 +139,20 @@ To retrieve the column names of a table, use the `fetch_table_column` method:
 
 `table_name` (str): The name of the table.
 
-## Retrieving Table Structure
+## Retrieving Table Query
 
-To get the structure of a table, use the `table_structure` method:
+To get the query of a table, use the `table_query` method:
 
 ```python
-structure = db.table_structure(table_name)
+structure = db.table_query(table_name)
+```
+
+## Retrieving Table Info
+
+To get the structure of a table, use the `table_info` method:
+
+```python
+structure = db.table_info(table_name)
 ```
 
 `table_name` (str): The name of the table.
@@ -148,7 +162,7 @@ structure = db.table_structure(table_name)
 To obtain a list of tables in the database, use the tables property:
 
 ```python
-table_list = db.tables
+table_list = db.__tables__
 ```
 
 The `tables` property returns a list of table names.

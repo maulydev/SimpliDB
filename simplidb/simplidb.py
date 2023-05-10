@@ -92,8 +92,13 @@ class SimpliDB:
         except sqlite3.Error as e:
             print(e)
 
+    def table_info(self, table_name: str):
+        return self.cursor.execute(
+            "PRAGMA table_info({})".format(table_name)
+        ).fetchone()
+
     @property
-    def tables(self):
+    def __tables__(self):
         try:
             return self.cursor.execute(
                 "SELECT name FROM sqlite_schema WHERE type ='table' AND name NOT LIKE 'sqlite_%'"

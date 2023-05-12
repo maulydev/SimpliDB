@@ -3,7 +3,7 @@ import sqlite3
 
 """
 ********** SIMPLIDB METHODS **********
-=>  ✅  CREATE TABLE (table_name, columns)
+=>     CREATE TABLE (table_name, columns)
 =>  ✅  DROP TABLE (table_name)         
 =>  ✅  TRUNCATE TABLE (table_name)
 =>  ✅  RENAME TABLE (old_table_name, new_table_name)
@@ -36,7 +36,9 @@ class SimpliDB:
         except sqlite3.Error as e:
             print("Error connecting to the database:", e)
 
-    #############################################   TABLE METHODS   ###########################################
+    """
+    TABLE METHODS
+    """
 
     def create_table(self, table_name: str, columns: dict):
         columns_str = ", ".join(
@@ -106,7 +108,9 @@ class SimpliDB:
         except sqlite3.Error as e:
             print(e)
 
-    #############################################   COLUMN METHODS  ###########################################
+    """
+    COLUMN METHODS
+    """
 
     def add_column(self, table_name: str, columns: dict):
         try:
@@ -142,7 +146,9 @@ class SimpliDB:
         except sqlite3.Error as e:
             print(e)
 
-    #############################################   ROW METHODS  ###########################################
+    """
+    ROW METHODS
+    """
 
     def insert_multiple(self, table_name: str, data: list):
         try:
@@ -194,7 +200,9 @@ class SimpliDB:
         except sqlite3.Error as e:
             print(e)
 
-    #############################################   ROW METHODS  ###########################################
+    """
+    OTHER METHODS
+    """
 
     def execute_sql(self, sql_query: str):
         try:

@@ -65,7 +65,7 @@ Ensure that you have a compatible version of Python installed on your system.
 
 SimpliDB can be installed from the GitHub repository using pip. Follow the steps below to install SimpliDB:
 
-1. Open a command prompt or gitbash terminal (NB: This works mostly on gitbash _gitbash_ (take note of your OS) ).
+1. Open a gitbash terminal (NB: This version can only be installed using _gitbash_).
 
 2. Run the following command to install SimpliDB directly from the GitHub repository:
 

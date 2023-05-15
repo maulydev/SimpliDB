@@ -2,6 +2,10 @@
 
 The `SimpliDB` class provides a simplified interface for interacting with a SQLite database. It offers methods to perform various operations related to tables, columns, and rows.
 
+### DB Methods
+
+- `connect`: Connect to an existing database or create new database if it does not exist
+
 ### Table Methods
 
 - `create_table`: Creates a new table in the database with specified columns.
@@ -31,6 +35,7 @@ The `SimpliDB` class provides a simplified interface for interacting with a SQLi
 
 - `execute_sql`: Executes a custom SQL query on the database.
 - `close`: Closes the database connection.
+- `__extend__`: Allows you to use the sqlite3 methods on the simplidb object
 
 The `SimpliDB` class simplifies common database operations, such as creating and manipulating tables, managing columns, inserting and retrieving rows, and executing custom SQL queries. It abstracts away the complexities of working directly with SQLite, providing a user-friendly interface for database interactions.
 
@@ -60,7 +65,7 @@ Ensure that you have a compatible version of Python installed on your system.
 
 SimpliDB can be installed from the GitHub repository using pip. Follow the steps below to install SimpliDB:
 
-1. Open a gitbash terminal (NB: This version can only be installed using _gitbash_).
+1. Open a command prompt or gitbash terminal (NB: This works mostly on gitbash _gitbash_ (take note of your OS) ).
 
 2. Run the following command to install SimpliDB directly from the GitHub repository:
 
@@ -81,7 +86,19 @@ from simplidb import SimpliDB
 ## Create an instance of SimpliDB
 
 ```python
+# This creates the database just by instantiating the object
 db = SimpliDB("my_database.db")
+```
+
+OR
+
+```python
+
+# First instantiate
+db = SimpliDB()
+
+# this method connects to an existing database or create a new database if it does not exists
+db.connect("database_name.db")
 ```
 
 Here's how you can use the `create_table` method of the SimpliDB library:
@@ -108,7 +125,7 @@ To drop a table from the database, use the `drop_table` method:
 db.drop_table(table_name)
 ```
 
-`table_name` (str): The name of the table to be dropped.
+- `table_name` (str): The name of the table to be dropped.
 
 ## Truncating a Table
 
@@ -118,7 +135,7 @@ To remove all data from a table while keeping its structure intact, use the `tru
 db.truncate_table(table_name)
 ```
 
-`table_name` (str): The name of the table to be truncated.
+- `table_name` (str): The name of the table to be truncated.
 
 ## Renaming a Table
 
@@ -128,16 +145,18 @@ To change the name of a table, use the rename_table method:
 db.rename_table(old_table_name, new_table_name)
 ```
 
-`old_table_name` (str): The current name of the table.
-`new_table_name` (str): The new name for the table.
+- `old_table_name` (str): The current name of the table.
+- `new_table_name` (str): The new name for the table.
 
 ## Fetching Table Columns
 
 To retrieve the column names of a table, use the `fetch_table_column` method:
 
-`columns = db.fetch_table_column(table_name)`
+```python
+columns = db.fetch_table_column(table_name)
+```
 
-`table_name` (str): The name of the table.
+- `table_name` (str): The name of the table.
 
 ## Retrieving Table Query
 
@@ -155,7 +174,7 @@ To get the structure of a table, use the `table_info` method:
 structure = db.table_info(table_name)
 ```
 
-`table_name` (str): The name of the table.
+- `table_name` (str): The name of the table.
 
 ## Getting a List of Tables
 
@@ -175,9 +194,9 @@ The add_column method allows you to add one or more columns to an existing table
 db.add_column(table_name, columns)
 ```
 
-`table_name` (str): The name of the table.
-`columns` (dict): A dictionary specifying the columns to be added, where the keys are the column names and the values are the column types.
-The `add_column` method executes the SQL statement ALTER TABLE table_name ADD COLUMN column_name column_type for each column in the provided dictionary. It adds the specified columns to the table and commits the changes to the database. Any errors encountered during the column addition process are handled gracefully.
+- `table_name` (str): The name of the table.
+  `columns` (dict): A dictionary specifying the columns to be added, where the keys are the column names and the values are the column types.
+  The `add_column` method executes the SQL statement ALTER TABLE table_name ADD COLUMN column_name column_type for each column in the provided dictionary. It adds the specified columns to the table and commits the changes to the database. Any errors encountered during the column addition process are handled gracefully.
 
 ## Dropping Columns from a Table
 
@@ -187,9 +206,9 @@ To drop one or more columns from an existing table, use the `drop_column` method
 db.drop_column(table_name, columns)
 ```
 
-`table_name` (str): The name of the table.
-`columns` (list): A list of column names to be dropped.
-The `drop_column` method executes the SQL statement ALTER TABLE table_name DROP COLUMN column_name for each column in the provided list. It removes the specified columns from the table and commits the changes to the database. Any errors encountered during the column dropping process are handled gracefully.
+- `table_name` (str): The name of the table.
+  `columns` (list): A list of column names to be dropped.
+  The `drop_column` method executes the SQL statement ALTER TABLE table_name DROP COLUMN column_name for each column in the provided list. It removes the specified columns from the table and commits the changes to the database. Any errors encountered during the column dropping process are handled gracefully.
 
 ## Renaming a Column
 
@@ -199,22 +218,28 @@ To rename a column in an existing table, use the `rename_column` method.
 db.rename_column(table_name, old_name, new_name)
 ```
 
-`table_name` (str): The name of the table.
-`old_name` (str): The current name of the column.
-`new_name` (str): The new name for the column.
-The `rename_column` method executes the SQL statement ALTER TABLE table_name RENAME COLUMN old_name TO new_name. It renames the specified column in the table and commits the changes to the database. Any errors encountered during the column renaming process are handled gracefully.
+- `table_name` (str): The name of the table.
+- `old_name` (str): The current name of the column.
+- `new_name` (str): The new name for the column.
+  The `rename_column` method executes the SQL statement ALTER TABLE table_name RENAME COLUMN old_name TO new_name. It renames the specified column in the table and commits the changes to the database. Any errors encountered during the column renaming process are handled gracefully.
 
 ## Inserting Rows
 
 The `insert_multiple` method allows you to insert multiple rows of data into a table.
 
 ```python
+data = [
+    ("user1", "password1",),
+    ("user2", "password2",),
+    ("user3", "password3",)
+]
+
 db.insert_multiple(table_name, data)
 ```
 
-`table_name` (str): The name of the table.
-`data` (list): A list of lists, where each inner list represents a row of data to be inserted.
-The `insert_multiple` method uses the `executemany` function to efficiently execute the SQL statement INSERT INTO table_name VALUES (?, ?, ...), where the number of placeholders (?) matches the number of columns in the table. It inserts multiple rows of data into the table and commits the changes to the database. Any errors encountered during the insertion process are handled gracefully.
+- `table_name` (str): The name of the table.
+- `data` (list): A list of tuples, where each inner tuples represents a row of data to be inserted.
+  The `insert_multiple` method uses the `executemany` function to efficiently execute the SQL statement INSERT INTO table_name VALUES (?, ?, ...), where the number of placeholders (?) matches the number of columns in the table. It inserts multiple rows of data into the table and commits the changes to the database. Any errors encountered during the insertion process are handled gracefully.
 
 To insert a single row of data into a table, you can use the `insert_row` method.
 
@@ -222,9 +247,9 @@ To insert a single row of data into a table, you can use the `insert_row` method
 db.insert_row(table_name, data)
 ```
 
-`table_name` (str): The name of the table.
-`data` (list): A list containing the values for each column in the row.
-The `insert_row` method executes the SQL statement INSERT INTO table_name VALUES (?, ?, ...), where the number of placeholders (?) matches the number of values in the provided list. It inserts a single row of data into the table and commits the changes to the database. Any errors encountered during the insertion process are handled gracefully.
+- `table_name` (str): The name of the table.
+- `data` (list): A list containing the values for each column in the row.
+  The `insert_row` method executes the SQL statement INSERT INTO table_name VALUES (?, ?, ...), where the number of placeholders (?) matches the number of values in the provided list. It inserts a single row of data into the table and commits the changes to the database. Any errors encountered during the insertion process are handled gracefully.
 
 ## Fetching Rows
 
@@ -234,8 +259,8 @@ To retrieve all rows from a table, you can use the `fetch_all` method.
 rows = db.fetch_all(table_name)
 ```
 
-`table_name` (str): The name of the table.
-The `fetch_all` method executes the SQL statement SELECT \* FROM table_name to fetch all rows from the table. It returns the result as a list of tuples, where each tuple represents a row of data. If any errors occur during the fetch process, an empty list is returned.
+- `table_name` (str): The name of the table.
+  The `fetch_all` method executes the SQL statement SELECT \* FROM table_name to fetch all rows from the table. It returns the result as a list of tuples, where each tuple represents a row of data. If any errors occur during the fetch process, an empty list is returned.
 
 ## Deleting Rows
 
@@ -248,10 +273,10 @@ condition = {'column1': value1, 'column2': value2, ...}  # Conditions for deleti
 db.delete_row(table_name, operator, condition)
 ```
 
-`table_name` (str): The name of the table.
-`operator` (str): The logical operator to combine multiple conditions (e.g., 'AND', 'OR').
-`condition` (dict): A dictionary specifying the column-value pairs to be matched for deletion.
-The `delete_row` method constructs a SQL statement using the provided operator and conditions and executes it to delete the matching rows from the table. It commits the changes to the database. Any errors encountered during the deletion process are handled gracefully.
+- `table_name` (str): The name of the table.
+- `operator` (str): The logical operator to combine multiple conditions (e.g., 'AND', 'OR').
+- `condition` (dict): A dictionary specifying the column-value pairs to be matched for deletion.
+  The `delete_row` method constructs a SQL statement using the provided operator and conditions and executes it to delete the matching rows from the table. It commits the changes to the database. Any errors encountered during the deletion process are handled gracefully.
 
 ## Counting Rows
 
@@ -261,19 +286,85 @@ To count the number of rows in a table, use the `count_row` method.
 count = db.count_row(table_name)
 ```
 
-`table_name` (str): The name of the table.
-The `count_row` method executes the SQL statement `SELECT COUNT(\*) FROM table_name` to retrieve the count of rows in the table. It returns the result as a tuple containing the label "count" and the count value. If any errors occur during the count process, an empty tuple is returned.
+- `table_name` (str): The name of the table.
+  The `count_row` method executes the SQL statement `SELECT COUNT(\*) FROM table_name` to retrieve the count of rows in the table. It returns the result as a tuple containing the label "count" and the count value. If any errors occur during the count process, an empty tuple is returned.
+
+## Retrieving Distinct Values from a Column
+
+To retrieve distinct values from a specific column in a table, you can use the `fetch_distinct` method
+
+```python
+result = db.fetch_distinct(table_name, column_name)
+```
+
+- `table_name` (str): The name of the table from which you want to retrieve distinct values.
+- `column_name` (str): The name of the column for which you want to retrieve distinct
+  The `fetch_distinct` method executes a SQL query using the SELECT DISTINCT(column_name) FROM table_name statement. It returns a list of tuples, where each tuple represents a distinct value found in the specified column.
+
+## Select Data from a Table
+
+The select method allows you to retrieve data from a table in the database based on specified criteria.
+
+```python
+result = db.fetch(
+    table_name="user",
+    columns=("username", "age"),
+    where="age > 17 AND username = 'value'",
+    order_by=("username ASC", "age DESC"),
+    limit=10,
+)
+```
+
+- SQL functions like `SUM | AVG | MAX | MIN` can be used on the columns
+
+```python
+result = db.fetch(table_name="user", columns=("SUM(score)"), where="score > 7")
+```
+
+- `table_name` (str): The name of the table from which to select the data.
+- `columns` (tuple): A tuple of column names to retrieve from the table. Defaults to all columns
+- `where` (str, optional): A string representing the conditions to filter the data. Defaults to None.
+- `order_by` (tuple, optional): A tuple of column names to specify the ordering of the results in either `ASC|DESC` ascending or descending. Defaults to None.
+- `limit` (int, optional): The maximum number of rows to retrieve. Defaults to None, which means no limit.
 
 ## Executing Custom SQL Queries
 
 The `execute_sql` method allows you to execute custom SQL queries on the database.
 
 ```python
-result = db.execute_sql(sql_query)
+query = "SELECT * FROM users WHERE username = ? AND password = ?"
+params = ("john_doe", "password123")
+result = db.execute_sql(query, params)
 ```
 
-`sql_query` (str): The SQL query to be executed.
-The `execute_sql` method takes an SQL query as input and executes it using the cursor's `execute` method. It returns the result of the query execution. If any errors occur during the execution, an error message is printed, and None is returned.
+- `sql_query` (str): The SQL query to be executed.
+- `params` (tuple): The SQL query parameters.
+  The `execute_sql` method takes an SQL query as input and executes it using the cursor's `execute` method. It returns the result of the query execution. If any errors occur during the execution, an error message is printed, and None is returned.
+
+```python
+#NB: Custom SQL queries can be executed using the `fetch` OR the `execute_sql` method
+```
+
+For more custom sqlite3 queries [click here](https://www.sqlitetutorial.net/)
+
+## Extending sqlite3
+
+The `__extend__` method allows you to use the sqlite3 methods on the simplidb object
+
+```python
+data = [
+    ("Monty Python Live at the Hollywood Bowl", 1982, 7.9),
+    ("Monty Python's The Meaning of Life", 1983, 7.5),
+    ("Monty Python's Life of Brian", 1979, 8.0),
+]
+
+simplidb.__extend__.executemany("INSERT INTO movie VALUES(?, ?, ?)", data)
+simplidb.__extend__.commit()
+
+res = simplidb.__extend__.execute("SELECT * FROM movie")
+for x in res:
+    print(x)
+```
 
 ## Closing the Database Connection
 
@@ -285,13 +376,20 @@ db.close()
 
 The `close` method closes the cursor used for executing queries. If any errors occur during the closing process, they are printed.
 
+## Issues
+
+Report any issue relating go the package through this link.
+
+- [Report Issue](https://github.com/maulydev/SimpliDB/issues)
+
 ## Authors
 
 - [Mauly dotDev](https://github.com/maulydev)
 
 ## Version History
 
-- 1.0 (2023-05-09): Initial release
+- 0.1.0-alpha (2023-05-09): Initial release
+- 0.2.1-alpha (2023-05-14)
 
 ## License
 
@@ -301,4 +399,4 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 
 ## Acknowledgement
 
-We would like to acknowledge the contributions and inspiration from the open-source community. We are grateful for the valuable resources and tools provided by developers worldwide.
+We would like to express our appreciation to the open-source community for their invaluable contributions. Specifically, we are grateful to the creators of the sqlite3 module in Python. Their development of the sqlite3 module has provided us with a robust and efficient tool for working with SQLite databases in our project.

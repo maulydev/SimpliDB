@@ -45,7 +45,7 @@ class SimpliDB:
     TABLE METHODS
     """
 
-    @classmethod
+    @property
     def __extend__(self):
         return self.db
 

@@ -12,6 +12,7 @@ setup(
     author_email="mauly.dev@email.com",
     description="A simple SQLite database wrapper (A package that provides a simplified interface for working with SQLite databases.)",
     long_description=long_description,
+    long_description_content_type='text/markdown',
     url="https://github.com/maulydev/SimpliDB",
     packages=find_packages(),
     classifiers=[

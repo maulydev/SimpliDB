@@ -1,12 +1,17 @@
 from setuptools import setup, find_packages
 
+
+with open('README.md', 'r', encoding='utf-8') as file:
+    long_description = file.read()
+
+
 setup(
     name="simplidb",
     version="0.2.1-alpha",
     author="Mauly dotDev",
     author_email="mauly.dev@email.com",
-    description="A simple SQLite database wrapper",
-    long_description="A Python package that provides a simplified interface for working with SQLite databases.",
+    description="A simple SQLite database wrapper (A package that provides a simplified interface for working with SQLite databases.)",
+    long_description=long_description,
     url="https://github.com/maulydev/SimpliDB",
     packages=find_packages(),
     classifiers=[
@@ -23,7 +28,7 @@ setup(
         "Bug Tracker": "https://github.com/maulydev/SimpliDB/issues",
         "Source Code": "https://github.com/maulydev/SimpliDB",
     },
-    keywords=["SQLite", "database", "wrapper"],
+    keywords=["SQLite", "database", "wrapper", "simple", "db"],
     install_requires=[
         # Add any required dependencies here
     ],

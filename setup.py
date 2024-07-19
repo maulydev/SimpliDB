@@ -7,7 +7,7 @@ with open('README.md', 'r', encoding='utf-8') as file:
 
 setup(
     name="simplidb",
-    version="0.2.2-alpha",
+    version="0.1.0",
     author="Mauly dotDev",
     author_email="mauly.dev@email.com",
     description="A simple SQLite database wrapper (A package that provides a simplified interface for working with SQLite databases.)",
@@ -16,7 +16,7 @@ setup(
     url="https://github.com/maulydev/SimpliDB",
     packages=find_packages(),
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",

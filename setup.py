@@ -7,7 +7,7 @@ with open('README.md', 'r', encoding='utf-8') as file:
 
 setup(
     name="simplidb",
-    version="0.2.3",
+    version="0.2.4",
     author="Mauly dotDev",
     author_email="mauly.dev@email.com",
     description="A simple SQLite database wrapper (A package that provides a simplified interface for working with SQLite databases.)",

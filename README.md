@@ -1,8 +1,6 @@
 # SimpliDB
 
-[![Downloads](https://static.pepy.tech/badge/simplidb)](https://pepy.tech/project/simplidb)  
-[![Downloads](https://static.pepy.tech/badge/simplidb/month)](https://pepy.tech/project/simplidb)  
-[![Downloads](https://static.pepy.tech/badge/simplidb/week)](https://pepy.tech/project/simplidb)
+[![Downloads](https://static.pepy.tech/badge/simplidb)](https://pepy.tech/project/simplidb)  [![Downloads](https://static.pepy.tech/badge/simplidb/month)](https://pepy.tech/project/simplidb)  [![Downloads](https://static.pepy.tech/badge/simplidb/week)](https://pepy.tech/project/simplidb)
 
 The `SimpliDB` class provides a simplified interface for interacting with a SQLite database. It offers methods to perform various operations related to tables, columns, and rows.
 
